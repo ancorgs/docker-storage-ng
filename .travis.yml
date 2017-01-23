@@ -4,6 +4,7 @@ services:
   - docker
 
 script:
-  # at least run a syntax check for the Travis script
-  - bash -n storage-ng-travis
+  # at least run a syntax check for the Travis scripts
+  - bash -n storage-ng-travis-cpp
+  - bash -n storage-ng-travis-ruby
   - docker build -t storage-ng-image .
