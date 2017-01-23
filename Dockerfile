@@ -37,6 +37,7 @@ RUN zypper --gpg-auto-import-keys --non-interactive in --no-recommends \
   update-desktop-files \
   which \
   yast2 \
+  yast2-core-devel \
   yast2-devtools \
   yast2-packager \
   yast2-proxy \
