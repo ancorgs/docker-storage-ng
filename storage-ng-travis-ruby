@@ -1,0 +1,59 @@
+#! /bin/bash
+
+# This is a CI build script for running inside the Travis builds.
+# It's designed for the YaST packages written in Ruby.
+
+# exit on error immediately, print the executed commands
+set -e -x
+
+rake check:pot
+
+if [ -e .rubocop.yml ]; then
+  rubocop
+else
+  # if rubocop is not used then at least check the syntax
+  rake check:syntax
+fi;
+
+if [ -e .spell.yml ]; then
+  rake check:spelling
+fi
+
+yardoc
+
+# autotools based package
+if [ -e Makefile.cvs ]; then
+  make -f Makefile.cvs
+  make -s
+  make -s install
+  make -s check VERBOSE=1 Y2DIR=`pwd`
+fi
+
+# enable coverage reports
+COVERAGE=1 CI=1 rake test:unit
+
+# build the binary package locally, use plain "rpmbuild" to make it simple
+rake tarball > /dev/null 2>&1
+
+# support RPM building for both root and non-root
+if [ "$UID" == "0" ]; then
+  PKG_DIR=/usr/src/packages
+else
+  PKG_DIR=~/rpmbuild
+fi
+
+mkdir -p $PKG_DIR/SOURCES/
+cp package/* $PKG_DIR/SOURCES/
+
+# Build the binary package, skip the %check section,
+# the tests have been already executed outside RPM build.
+# If it fails try to build the package with ignored deps, maybe it can work anyway...
+# (e.g. yast2-packager requires yast2_theme which is not needed in simple rpmbuild)
+rpmbuild -bb --nocheck package/*.spec || rpmbuild -bb --nocheck --nodeps package/*.spec
+
+# test the %pre/%post scripts by installing/updating/removing the built packages
+# ignore the dependencies to make the test easier, as a smoke test it's good enough
+rpm -iv --force --nodeps $PKG_DIR/RPMS/*/*.rpm
+rpm -Uv --force --nodeps $PKG_DIR/RPMS/*/*.rpm
+# get the plain package names and remove all packages at once
+rpm -ev --nodeps `rpm -q --qf '%{NAME} ' -p $PKG_DIR/RPMS/*/*.rpm`

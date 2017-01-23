@@ -1,0 +1,9 @@
+sudo: required
+language: bash
+services:
+  - docker
+
+script:
+  # at least run a syntax check for the Travis script
+  - bash -n storage-ng-travis
+  - docker build -t storage-ng-image .
