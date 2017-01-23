@@ -38,6 +38,8 @@ RUN zypper --gpg-auto-import-keys --non-interactive in --no-recommends \
   which \
   yast2 \
   yast2-devtools \
+  yast2-packager \
+  yast2-proxy \
   yast2-ruby-bindings \
   yast2-storage-ng \
   && zypper clean -a
