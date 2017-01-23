@@ -37,7 +37,7 @@ RUN zypper --gpg-auto-import-keys --non-interactive in --no-recommends \
   which \
   yast2 \
   yast2-devtools \
-  yast2-ruby-bindings
+  yast2-ruby-bindings \
   && zypper clean -a
 COPY storage-ng-travis-* /usr/local/bin/
 RUN mkdir -p /usr/src/app
