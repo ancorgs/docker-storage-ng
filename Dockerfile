@@ -41,6 +41,7 @@ RUN zypper --gpg-auto-import-keys --non-interactive in --no-recommends \
   yast2-ruby-bindings \
   && zypper clean -a
 COPY storage-ng-travis-* /usr/local/bin/
+ENV LC_ALL=en_US.UTF-8
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 # just a smoke test, make sure YaST...
