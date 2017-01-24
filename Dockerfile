@@ -3,6 +3,7 @@ RUN zypper ar -f http://download.opensuse.org/repositories/YaST:/Head/openSUSE_T
 # set a higher priority for the storage-ng repo to prefer the packages from this repo
 RUN zypper ar -f -p 50 http://download.opensuse.org/repositories/YaST:/storage-ng/openSUSE_Tumbleweed/ storage-ng
 RUN zypper --gpg-auto-import-keys --non-interactive in --no-recommends \
+  'rubygem(cfa)' \
   'rubygem(coveralls)' \
   'rubygem(fast_gettext)' \
   'rubygem(gettext)' \
