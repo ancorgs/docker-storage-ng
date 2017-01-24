@@ -44,6 +44,7 @@ RUN zypper --gpg-auto-import-keys --non-interactive in --no-recommends \
   yast2-proxy \
   yast2-ruby-bindings \
   yast2-storage-ng \
+  yast2-testsuite \
   && zypper clean -a
 COPY storage-ng-travis-* /usr/local/bin/
 ENV LC_ALL=en_US.UTF-8
