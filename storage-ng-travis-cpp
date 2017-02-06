@@ -20,6 +20,11 @@ else
   exit 1
 fi
 
+if [ -d package ]; then
+  # run the osc source validator to check the .spec and .changes locally
+  (cd package && /usr/lib/obs/service/source_validator)
+fi
+
 cp package/* /usr/src/packages/SOURCES/
 # Build the binary package, if it fails try to build the package with ignored
 # deps, maybe it can work anyway...

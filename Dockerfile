@@ -30,6 +30,7 @@ RUN zypper --gpg-auto-import-keys --non-interactive in --no-recommends \
   libtool \
   libxml2-devel \
   libxslt \
+  obs-service-source_validator \
   python-devel \
   rpm-build \
   ruby-devel \

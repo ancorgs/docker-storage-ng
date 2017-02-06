@@ -35,6 +35,11 @@ COVERAGE=1 CI=1 rake test:unit
 # build the binary package locally, use plain "rpmbuild" to make it simple
 rake tarball > /dev/null 2>&1
 
+if [ -d package ]; then
+  # run the osc source validator to check the .spec and .changes locally
+  (cd package && /usr/lib/obs/service/source_validator)
+fi
+
 # support RPM building for both root and non-root
 if [ "$UID" == "0" ]; then
   PKG_DIR=/usr/src/packages
