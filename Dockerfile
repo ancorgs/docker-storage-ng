@@ -52,6 +52,7 @@ RUN RUBY_VERSION=`rpm --eval '%{rb_default_ruby_abi}'` && \
   yast2-core-devel \
   yast2-devtools \
   yast2-network \
+  yast2-installation-control \
   yast2-packager \
   yast2-proxy \
   yast2-ruby-bindings \
