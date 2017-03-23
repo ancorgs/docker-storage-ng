@@ -50,6 +50,7 @@ RUN RUBY_VERSION=`rpm --eval '%{rb_default_ruby_abi}'` && \
   which \
   yast2 \
   yast2-core-devel \
+  yast2-country \
   yast2-devtools \
   yast2-network \
   yast2-installation-control \
