@@ -58,6 +58,7 @@ RUN RUBY_VERSION=`rpm --eval '%{rb_default_ruby_abi}'` && \
   yast2-ruby-bindings \
   yast2-storage-ng \
   yast2-testsuite \
+  yast2-users \
   && zypper clean -a
 COPY storage-ng-travis-* /usr/local/bin/
 ENV LC_ALL=en_US.UTF-8
